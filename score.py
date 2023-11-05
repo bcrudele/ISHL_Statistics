@@ -71,7 +71,7 @@ for player, stats in player_stats.items():
             trade_score = 85
         elif apm < -4 and apm > -7:
             trade_score = 80
-        else:
+        elif apm < -7:
             trade_score = 75
 
     player_stats[player]["Trade-Score"] = round(trade_score) 
