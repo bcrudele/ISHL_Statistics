@@ -20,6 +20,31 @@ player_stats = {
     "Skyler D.": {"GPG": 0} 
 }
 
+"""
+import random
+
+player_stats = {
+    "Jack C.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
+    "Collin Q.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
+    "Teddy B.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
+    "Karl K.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
+    "Graham H.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
+    "Jimmy D.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
+    "Hawthorne": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
+    "Ryan K.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
+    "Andy": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
+    "Brandon C.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
+    "Anthony W.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
+    "Jared P.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
+    "Colin Y.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
+    "Trevor P.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
+    "CJ": {"GPG": random.uniform(0, 5)},
+    "Skyler D.": {"GPG": random.uniform(0, 5)}
+}
+
+print(player_stats)
+"""
+
 goalie_names = ["Brandon C.", "Jared P.", "Jack C."]
 
 # want mean 85
@@ -29,7 +54,9 @@ gpg_values = [stats["GPG"] for stats in player_stats.values() if stats["GPG"] > 
 gpg_values.sort()
 
 mean = np.mean(gpg_values)
+#print(mean)
 std = np.std(gpg_values)
+#print(std)
 
 neg3std = mean - 3 * std
 neg2std = mean - 2 * std
