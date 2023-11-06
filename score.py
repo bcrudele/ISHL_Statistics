@@ -57,6 +57,16 @@ mean = np.mean(gpg_values)
 #print(mean)
 std = np.std(gpg_values)
 #print(std)
+x = np.linspace(0, mean + 3*std, 100)
+y = (1 / (std * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((x - mean) / std)**2)
+plt.figure(figsize=(5, 5))
+#plt.scatter(range(0, len(gpg_values)), gpg_values, color='red', label='Data')
+plt.plot(x, y, color='blue')
+plt.xlabel('GPG')
+plt.ylabel('Probability')
+plt.title('GPG Gaussian Distribution')
+plt.show()
+
 
 neg3std = mean - 3 * std
 neg2std = mean - 2 * std
@@ -109,9 +119,26 @@ sorted_players = sorted(player_stats.keys(), key=lambda player: player_stats[pla
 sorted_trade_scores = [player_stats[player]["Trade-Score"] for player in sorted_players]
 
 # Plot the trade scores in descending order
+
 plt.figure(figsize=(10, 6))
 plt.barh(sorted_players, sorted_trade_scores, color='skyblue')
 plt.xlabel('Trade Score')
 plt.title('Trade Scores for Players (Sorted)')
 plt.gca().invert_yaxis()
+plt.show()
+
+
+# Plot the Gaussian for trade scores
+mean_score = np.mean(sorted_trade_scores)
+std_score = np.std(sorted_trade_scores)
+x_score = np.linspace(min(sorted_trade_scores), max(sorted_trade_scores), 100)
+bin_width = x_score[1] - x_score[0]
+y_score = (1 / (std_score * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((x_score - mean_score) / std_score)**2)
+y_score = y_score * len(sorted_trade_scores) * bin_width
+
+plt.figure(figsize=(5, 5))
+plt.plot(x_score, y_score, color='red')
+plt.xlabel('PSS')
+plt.ylabel('Probability')
+plt.title('PSS Gaussian Distribution')
 plt.show()
