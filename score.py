@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# APM -> Average Plus Minus
+# GPG -> Goals per Game
 player_stats = {
     "Jack C.": {"GPG": 0, "APM": -1.33},  
     "Collin Q.": {"GPG": 1.77, "APM": -0.42},
@@ -20,35 +22,10 @@ player_stats = {
     "Skyler D.": {"GPG": 0} 
 }
 
-"""
-import random
-
-player_stats = {
-    "Jack C.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
-    "Collin Q.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
-    "Teddy B.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
-    "Karl K.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
-    "Graham H.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
-    "Jimmy D.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
-    "Hawthorne": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
-    "Ryan K.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
-    "Andy": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
-    "Brandon C.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
-    "Anthony W.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
-    "Jared P.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
-    "Colin Y.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
-    "Trevor P.": {"GPG": random.uniform(0, 5), "APM": random.uniform(-3, 3)},
-    "CJ": {"GPG": random.uniform(0, 5)},
-    "Skyler D.": {"GPG": random.uniform(0, 5)}
-}
-
-print(player_stats)
-"""
-
 goalie_names = ["Brandon C.", "Jared P.", "Jack C."]
 
-# want mean 85
-# want std 5
+desired_mean = 85
+desired_std = (100-desired_mean) // 3
 
 gpg_values = [stats["GPG"] for stats in player_stats.values() if stats["GPG"] > 0]
 gpg_values.sort()
@@ -65,7 +42,7 @@ plt.plot(x, y, color='blue')
 plt.xlabel('GPG')
 plt.ylabel('Probability')
 plt.title('GPG Gaussian Distribution')
-plt.show()
+#plt.show()
 
 
 neg3std = mean - 3 * std
@@ -80,36 +57,37 @@ for player, stats in player_stats.items():
     apm = stats.get("APM",0)
     
     if gpg == 0:
-        trade_score = 75
+        trade_score = desired_mean - (2 * desired_std)
     if gpg >= neg2std:
-        trade_score = 80
+        trade_score = desired_mean - desired_std
     if gpg >= neg1std:
-        trade_score = 85
+        trade_score = desired_mean
     if gpg >= mean:
-        trade_score = 90
+        trade_score = desired_mean + desired_std
     if gpg >= pos1std:
-        trade_score = 95
+        trade_score = desired_mean + (2 * desired_std)
 
     # Skaters:
     if player not in goalie_names:
         if apm > 0:
-            trade_score += apm % 5 // 1
+            trade_score += apm // 1
         elif apm < 0:
-            trade_score -= apm % 5 // 1
+            trade_score -= apm // 1
+
     # Goalies:
     else:
         if apm > 0:
-            trade_score = 95
+            trade_score = desired_mean + (2 * desired_std)
         elif apm > 4:
-            trade_score = 95
+            trade_score = desired_mean + (2 * desired_std)
         elif apm > 7:
             trade_score = 100
         elif apm < 0 and apm > -4:
-            trade_score = 85
+            trade_score = desired_mean
         elif apm < -4 and apm > -7:
-            trade_score = 80
+            trade_score = desired_mean - desired_std
         elif apm < -7:
-            trade_score = 75
+            trade_score = desired_mean - (2 * desired_std)
 
     player_stats[player]["Trade-Score"] = round(trade_score) 
     #print(f'{player} score -> {player_stats[player]["Trade-Score"]}')
@@ -125,7 +103,7 @@ plt.barh(sorted_players, sorted_trade_scores, color='skyblue')
 plt.xlabel('Trade Score')
 plt.title('Trade Scores for Players (Sorted)')
 plt.gca().invert_yaxis()
-plt.show()
+#plt.show()
 
 
 # Plot the Gaussian for trade scores
@@ -138,7 +116,11 @@ y_score = y_score * len(sorted_trade_scores) * bin_width
 
 plt.figure(figsize=(5, 5))
 plt.plot(x_score, y_score, color='red')
-plt.xlabel('PSS')
+plt.xlabel('PPS')
 plt.ylabel('Probability')
-plt.title('PSS Gaussian Distribution')
-plt.show()
+plt.title('PPS Gaussian Distribution')
+#plt.show()
+
+for key, entry in player_stats.items():
+    print(key, '->', entry)
+print(mean_score)
