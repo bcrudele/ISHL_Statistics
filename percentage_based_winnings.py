@@ -49,3 +49,7 @@ print(f'Ref Cost: {ref_cost}')
 ## Find Left-over for Supplies
 excess -= ref_cost
 print(f'Materials & Extra {excess}')
+
+## If there was a goalie discount...
+g_discount = 15 # dollars off
+print(f'Materials & Extra (after discount) {excess - (num_teams * g_discount)}')
