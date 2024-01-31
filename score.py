@@ -18,8 +18,8 @@ player_stats = {
     "Jared P.": {"GPG": 0, "APM": 2.08},  
     "Colin Y.": {"GPG": 4, "APM": 4.8},
     "Trevor P.": {"GPG": 2.67, "APM": 5.83},
-    "CJ": {"GPG": 0},  
-    "Skyler D.": {"GPG": 0} 
+    #"CJ": {"GPG": 0},  
+    #"Skyler D.": {"GPG": 0} 
 }
 
 goalie_names = ["Brandon C.", "Jared P.", "Jack C."]
