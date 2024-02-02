@@ -1,6 +1,6 @@
 ### Rate Based Winnings (ACTIVE)
-# BUY IN: 30$
-# The winning team will recieve their money back
+# CURRENT BUY IN: 25$
+# The winning team will recieve their money back 2.4x
 
 ## Costs
 # Jerseys -> Iron-On-Tees
@@ -9,9 +9,9 @@ jersey_cost = 100
 ## General Info
 rates =  [25]     # regi. fee
 income = []       # income at diff rates
-payout = []       # 
-rollover = []
-money_after_payout = [] 
+payout = []       # money paid for winnings
+rollover = []     # money after payout + jerseys
+money_after_payout = []     # money after payout
 gamble_payout = 2.4 # multiplier for winnings
 
 i_track = 0
