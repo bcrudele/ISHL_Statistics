@@ -3,21 +3,19 @@
 # The winning team will recieve their money back
 
 ## Costs
-# Jerseys
-
-# 
-
-
-
+# Jerseys -> Iron-On-Tees
+jersey_cost = 100
 
 ## General Info
-rates = [15,20,25,30,35,40] # regi. fee
-income = []  # income at diff rates
-payout = []
-money_after_payout = []
+rates =  [25]     # regi. fee
+income = []       # income at diff rates
+payout = []       # 
+rollover = []
+money_after_payout = [] 
+gamble_payout = 2.4 # multiplier for winnings
 
 i_track = 0
-skaters_per_team = [5] # skaters per team (not including goalie)
+skaters_per_team = [7] # skaters per team ( including goalie)
 num_teams = 4
 
 for rate in rates:
@@ -25,14 +23,20 @@ for rate in rates:
 
     ## Find Income
     money_per_team = rate * skaters_per_team[0]
-    payout.append(money_per_team)
+    winners_payout = money_per_team * gamble_payout
+    payout.append(winners_payout)
     income.append(money_per_team * num_teams)
 
-    ## Winning Team Calc.
-    money_after_payout.append(income[i_track] - money_per_team)
+    # Excess after Payout
+    money_after_payout.append(income[i_track] - winners_payout)
 
+    # Excess after Jerseys
+    rollover.append(money_after_payout[i_track] - jersey_cost)
     i_track += 1
-print(f' Rates              : {rates} $')
-print(f'\n Payout Cost        : {payout}')
-print(f'\n Money After Payout : {money_after_payout} left over')
 
+print(f'Rates              : {rates} $')
+print(f'Income             : {income} $ collected')
+print(f'Total Payout Cost  : {payout} $ for winning team')
+print(f'Payout Per Player  : {[skater / skaters_per_team[0] for skater in payout]} $ per winning player')
+print(f'Jersey Cost        :  {jersey_cost} $')
+print(f'Excess             : {rollover} $')
